@@ -1,0 +1,278 @@
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
+
+package com.canadian.payroll;
+import java.util.*;
+
+/**
+ * @author Opeyemi Adesina
+ * @version: %I% %G%    
+ * @since 1.0
+ */
+// line 10 "../../../../../model.ump"
+// line 310 "../../../../../model.ump"
+// line 322 "../../../../../model.ump"
+public class Employee
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //Employee Attributes
+  private String name;
+  private double age;
+  private double grossIncome;
+
+  //Employee Associations
+  private List<Deduction> deductions;
+  private Province worksIn;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public Employee(String aName, double aAge, double aGrossIncome, Province aWorksIn)
+  {
+    name = aName;
+    age = aAge;
+    grossIncome = aGrossIncome;
+    deductions = new ArrayList<Deduction>();
+    if (!setWorksIn(aWorksIn))
+    {
+      throw new RuntimeException("Unable to create Employee due to aWorksIn. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    if (aAge<14)
+    {
+      throw new RuntimeException("Please provide a valid age [age>=14]");
+    }
+    if (aGrossIncome<0)
+    {
+      throw new RuntimeException("Please provide a valid grossIncome [grossIncome>=0]");
+    }
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setAge(double aAge)
+  {
+    boolean wasSet = false;
+    if (aAge>=14)
+    {
+    age = aAge;
+    wasSet = true;
+    }
+    return wasSet;
+  }
+
+  public boolean setGrossIncome(double aGrossIncome)
+  {
+    boolean wasSet = false;
+    if (aGrossIncome>=0)
+    {
+    grossIncome = aGrossIncome;
+    wasSet = true;
+    }
+    return wasSet;
+  }
+
+  /**
+   * class attributes
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  public double getAge()
+  {
+    return age;
+  }
+
+  public double getGrossIncome()
+  {
+    return grossIncome;
+  }
+  /* Code from template association_GetMany */
+  public Deduction getDeduction(int index)
+  {
+    Deduction aDeduction = deductions.get(index);
+    return aDeduction;
+  }
+
+  /**
+   * employees can't owe after working
+   */
+  public List<Deduction> getDeductions()
+  {
+    List<Deduction> newDeductions = Collections.unmodifiableList(deductions);
+    return newDeductions;
+  }
+
+  public int numberOfDeductions()
+  {
+    int number = deductions.size();
+    return number;
+  }
+
+  public boolean hasDeductions()
+  {
+    boolean has = deductions.size() > 0;
+    return has;
+  }
+
+  public int indexOfDeduction(Deduction aDeduction)
+  {
+    int index = deductions.indexOf(aDeduction);
+    return index;
+  }
+  /* Code from template association_GetOne */
+  public Province getWorksIn()
+  {
+    return worksIn;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfDeductions()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public Deduction addDeduction()
+  {
+    return new Deduction(this);
+  }
+
+  public boolean addDeduction(Deduction aDeduction)
+  {
+    boolean wasAdded = false;
+    if (deductions.contains(aDeduction)) { return false; }
+    Employee existingEmployee = aDeduction.getEmployee();
+    boolean isNewEmployee = existingEmployee != null && !this.equals(existingEmployee);
+    if (isNewEmployee)
+    {
+      aDeduction.setEmployee(this);
+    }
+    else
+    {
+      deductions.add(aDeduction);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeDeduction(Deduction aDeduction)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aDeduction, as it must always have a employee
+    if (!this.equals(aDeduction.getEmployee()))
+    {
+      deductions.remove(aDeduction);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addDeductionAt(Deduction aDeduction, int index)
+  {  
+    boolean wasAdded = false;
+    if(addDeduction(aDeduction))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDeductions()) { index = numberOfDeductions() - 1; }
+      deductions.remove(aDeduction);
+      deductions.add(index, aDeduction);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveDeductionAt(Deduction aDeduction, int index)
+  {
+    boolean wasAdded = false;
+    if(deductions.contains(aDeduction))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDeductions()) { index = numberOfDeductions() - 1; }
+      deductions.remove(aDeduction);
+      deductions.add(index, aDeduction);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addDeductionAt(aDeduction, index);
+    }
+    return wasAdded;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setWorksIn(Province aNewWorksIn)
+  {
+    boolean wasSet = false;
+    if (aNewWorksIn != null)
+    {
+      worksIn = aNewWorksIn;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+
+  public void delete()
+  {
+    for(int i=deductions.size(); i > 0; i--)
+    {
+      Deduction aDeduction = deductions.get(i - 1);
+      aDeduction.delete();
+    }
+    worksIn = null;
+  }
+
+  // line 25 "../../../../../model.ump"
+   public String getProvinceName(){
+    return worksIn.getName();
+  }
+
+
+  /**
+   * 
+   * operation computes the sum of deductions for an employee
+   * @return totalDeduction the sum of provincial, federal taxes, ei and cpp
+   */
+  // line 35 "../../../../../model.ump"
+   public double totalDeductions(){
+    double totalDeduction = 0;
+    for( Deduction deduction : deductions ) {
+      totalDeduction += deduction.getAmount();
+    }
+    return totalDeduction;
+  }
+
+
+  /**
+   * 
+   * operation computes the sum of deductions for an employee
+   * @return totalDeduction - the sum of provincial, federal taxes, ei and cpp
+   */
+  // line 48 "../../../../../model.ump"
+   public double netIncome(){
+    return grossIncome - totalDeductions();
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "," +
+            "age" + ":" + getAge()+ "," +
+            "grossIncome" + ":" + getGrossIncome()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "worksIn = "+(getWorksIn()!=null?Integer.toHexString(System.identityHashCode(getWorksIn())):"null");
+  }
+}
