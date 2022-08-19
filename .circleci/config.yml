@@ -13,8 +13,6 @@ jobs:
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
     steps:
         - run:
-            command: mvn test
-        - run:
             name: Save test results
             command: |
               mkdir -p ~/test-results/junit/
@@ -26,4 +24,5 @@ jobs:
 workflows:
     Example-Workflow:
       jobs:
+        - maven/test
         - test
