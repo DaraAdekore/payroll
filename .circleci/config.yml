@@ -13,9 +13,8 @@ jobs:
     docker: # executor type
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
     steps:
-        - run:
-            name: get results
-            command: ls
+        - checkout:
+            path: payroll/
         - run:
             name: Save test results
             command: |
