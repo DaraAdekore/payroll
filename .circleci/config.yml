@@ -7,14 +7,12 @@ commands:
     steps:
       - run: bundle check --path=vendor/bundle || bundle install --path=vendor/
 jobs:
-  
+
   test:
     
     docker: # executor type
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
     steps:
-        - checkout: 
-            path: ~/payroll
         - run:
             name: get results
             command: ls
@@ -30,5 +28,6 @@ jobs:
 workflows:
     Example-Workflow:
       jobs:
-
+        - maven/test:
+            app_src_directory: ./
         - test
