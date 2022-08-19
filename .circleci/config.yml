@@ -11,7 +11,7 @@ jobs:
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
     steps:
         - run:
-            command: mvn clean test
+            command: mvn test
         - run:
             name: Save test results
             command: |
