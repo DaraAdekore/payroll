@@ -30,4 +30,4 @@ jobs:
   workflows:
   Example-Workflow:
     jobs:
-      - test
+      - "test"
