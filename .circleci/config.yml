@@ -8,8 +8,8 @@ jobs:
 
   test:
     docker: # executor type
-      image: cimg/base:stable # primary container will run the latest, production-ready base image
-      steps:
+      - image: cimg/base:stable # primary container will run the latest, production-ready base image
+    steps:
         - run:
             name: Save test results
             command: |
@@ -17,17 +17,9 @@ jobs:
               find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
             when: always
         - store_test_results:
-          path: ~/test-results
+            path: ~/test-results
 
-
-
-  build: # name of your job
-    docker: # executor type
-      image: cimg/base:stable # primary container will run the latest, production-ready base image
-
-      steps:
-        # Commands run in the primary container
-  workflows:
-  Example-Workflow:
-    jobs:
-      - "test"
+workflows:
+    Example-Workflow:
+      jobs:
+        - test
