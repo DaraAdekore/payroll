@@ -29,4 +29,5 @@ workflows:
       jobs:
         - maven/test:
             app_src_directory: "payroll/"
+            test_results_path: "payroll/"
         - test
