@@ -10,7 +10,7 @@ jobs:
     docker: # executor type
       image: cimg/base:stable # primary container will run the latest, production-ready base image
       steps:
-          - run:
+        - run:
             name: Save test results
             command: |
               mkdir -p ~/test-results/junit/
@@ -27,3 +27,7 @@ jobs:
 
       steps:
         # Commands run in the primary container
+  workflows:
+  Example-Workflow:
+    jobs:
+      - test
