@@ -9,9 +9,13 @@ commands:
 jobs:
 
   test:
+    
     docker: # executor type
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
     steps:
+        - run:
+            name: get results
+            command: ls
         - run:
             name: Save test results
             command: |
@@ -24,5 +28,6 @@ jobs:
 workflows:
     Example-Workflow:
       jobs:
-        - maven/test
+        - maven/test:
+            app_src_directory: "payroll/payroll/src/test/java/com/canadian/payroll"
         - test
