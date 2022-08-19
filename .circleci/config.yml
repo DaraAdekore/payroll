@@ -17,7 +17,7 @@ jobs:
             path: ~/payroll
         - run:
             name: get results
-            command: mvn test
+            command: ls
         - run:
             name: Save test results
             command: |
