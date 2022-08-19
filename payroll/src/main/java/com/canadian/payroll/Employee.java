@@ -265,12 +265,19 @@ public class Employee
    public double netIncome(){
     return grossIncome - totalDeductions();
   }
-
+   
+   // 
+   public boolean equal(Employee employee) {
+	   return this.getAge() == employee.getAge() &&
+			   this.getGrossIncome()==employee.getGrossIncome()
+			   && this.getName() == employee.getName() &&
+			   this.getProvinceName() == employee.getProvinceName();
+   }
 
   public String toString()
   {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
+
+           return "name" + ":" + getName()+ "," +
             "age" + ":" + getAge()+ "," +
             "grossIncome" + ":" + getGrossIncome()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "worksIn = "+(getWorksIn()!=null?Integer.toHexString(System.identityHashCode(getWorksIn())):"null");

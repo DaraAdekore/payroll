@@ -42,7 +42,7 @@ public class FederalTax extends Tax
    * @return federalTax deductible federal tax
    */
   // line 225 "../../../../../model.ump"
-   private double computeTax(double grossIncome){
+   public double computeTax(double grossIncome){
     //setting up tax percentages and their respective lower bounds
     double [] taxPercentages = {0.15, 0.205, 0.26, 0.29};
 	double [] lowerBounds = {50197.0, 100392.0, 155625.0, 221708.0};
@@ -63,7 +63,7 @@ public class FederalTax extends Tax
     }
     
      //federalTaxBracket = "29.0% [$155,625.01 .. $221,708.01)"
-    else if( grossIncome > 155625.01 && grossIncome < 221708.01 ) {
+    else if( grossIncome >= 155625.01 && grossIncome < 221708.01 ) {
        return ( grossIncome - 155625.01 ) * .29 + computeTaxCategoryPay( taxPercentages, lowerBounds, 2 );
     }
     

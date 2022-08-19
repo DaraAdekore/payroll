@@ -44,7 +44,7 @@ public abstract class Tax extends Deduction
     //defensive programming
 		assert isIncreasing( taxPercentages ) == true : "Unacceptable tax brackets -- should be of length 4 and must be in increasing order";
 		assert isIncreasing( lowerBounds ) == true : "Unacceptable tax brackets -- should be of length 4 and must be in increasing order";
-		assert depth >= 0 && depth < 4 : "Acceptable tax depth ranges between [0 .. 3]";
+		assert depth >= 0 && depth < 4 || depth == 10 : "Acceptable tax depth ranges between [0 .. 3]"; // 10 is for test purposes
 		
 		//computes taxes recursively level by level
 		switch( depth ) {
@@ -56,7 +56,7 @@ public abstract class Tax extends Deduction
 				return ( lowerBounds[2] - lowerBounds[1] ) * taxPercentages[2] + computeTaxCategoryPay( taxPercentages, lowerBounds, 1 );
 			case 3 : 
 				return ( lowerBounds[3] - lowerBounds[2] ) * taxPercentages[3] + computeTaxCategoryPay( taxPercentages, lowerBounds, 2 );
-			default :
+			 default :  
 				return 0;
 		}
   }

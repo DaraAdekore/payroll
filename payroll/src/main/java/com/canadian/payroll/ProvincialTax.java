@@ -75,7 +75,7 @@ public class ProvincialTax extends Tax
 
   private double newBrunswick(double grossIncome){
     //setting up tax percentages and their respective lower bounds
-    double [] taxPercentages = {0.094, 0.1482, 0.1652, 0.1784, 0.2030};
+    double [] taxPercentages = {0.094, 0.1482, 0.1652, 0.1784};
 	double [] lowerBounds = {44887.00,89775.00, 145995.00, 166280.00};
     
     if( grossIncome >= 0.0 && grossIncome < 44887.01) { 
@@ -101,8 +101,8 @@ public class ProvincialTax extends Tax
 
   private double manitoba(double grossIncome){
     //setting up tax percentages and their respective lower bounds
-    double [] taxPercentages = {0.1080, 0.1275, 0.1740};
-	double [] lowerBounds = {34431.00,74416.00};
+    double [] taxPercentages = {0.1080, 0.1275, 0.1740,0.2};
+	double [] lowerBounds = {34431.00,74416.00,90000.00,199999};
     
     if( grossIncome >= 0.0 && grossIncome < 34431.00) { 
       return 0.1080 * grossIncome;
@@ -132,8 +132,8 @@ public class ProvincialTax extends Tax
         return alberta( grossIncome );
       case "newbrunswick" : return newBrunswick(grossIncome);
       case "manitoba" : return manitoba(grossIncome);
-      case "saskatchewan" : return 0.0;
-      case "newfoundland" : return 0.0;
+      //case "saskatchewan" : return 0.0;
+      //case "newfoundland" : return 0.0;
       default: return 0.0;
     }
   }
