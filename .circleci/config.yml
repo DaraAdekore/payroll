@@ -1,4 +1,6 @@
 version: 2.1
+orbs: 
+  maven: circleci/maven@1.3.0
 commands:
   install:
     description: "install dependencies"
