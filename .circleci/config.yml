@@ -29,5 +29,5 @@ workflows:
     Example-Workflow:
       jobs:
         - maven/test:
-            app_src_directory: "payroll/payroll/src/test/java/com/canadian/payroll"
+            
         - test
