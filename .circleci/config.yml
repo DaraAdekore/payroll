@@ -8,7 +8,7 @@ commands:
       - run: bundle check --path=vendor/bundle || bundle install --path=vendor/
 jobs:
 
-  test:
+  store_test:
     
     docker: # executor type
       - image: cimg/base:stable # primary container will run the latest, production-ready base image
@@ -31,4 +31,4 @@ workflows:
         - maven/test:
             app_src_directory: "payroll/"
             test_results_path: "payroll/"
-        - test
+        - store_test
