@@ -1,12 +1,8 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package com.canadian.payroll;
 import java.util.*;
 
-// line 53 "../../../../../model.ump"
-// line 316 "../../../../../model.ump"
-// line 327 "../../../../../model.ump"
+
 public class Deduction
 {
 
